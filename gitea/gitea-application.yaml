@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
+    path: 'gitea'
+    targetRevision: main
+    directory:
+      recurse: true
+    helm:
+      valueFiles:
+        - values.yaml
+      values: |
+        global:
+          storageClass: lh-ssd-r3
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: s-gitea
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
