@@ -10,7 +10,7 @@ spec:
   project: default
   sources:
     - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
-      path: '/longhorn'
+      path: 'longhorn'
       targetRevision: main
     - chart: longhorn
       repoURL: https://charts.longhorn.io/

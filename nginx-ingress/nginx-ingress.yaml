@@ -11,7 +11,7 @@ spec:
   project: default
   sources:
     - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
-      path: '/nginx-ingress'
+      path: 'nginx-ingress'
       targetRevision: main
     - chart: nginx-ingress
       repoURL: oci://ghcr.io/nginxinc/charts/nginx-ingress
