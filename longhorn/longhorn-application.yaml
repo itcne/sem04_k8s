@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  project: default
+  sources:
+    - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
+      path: '/longhorn'
+      targetRevision: main
+    - chart: longhorn
+      repoURL: https://charts.longhorn.io/
+      targetRevision: v1.7.2
+      helm:
+        values: |
+          preUpgradeChecker:
+            jobEnabled: false
+          defaultSettings:
+            defaultReplicaCount: 2
+            defaultDataLocality: "best-effort"
+            defaultDataPath: /var/mnt/longhorn
+          namespaceOverride: "longhorn-system"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system

@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  project: default
+  sources:
+    - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
+      path: '/nginx-ingress'
+      targetRevision: main
+    - chart: nginx-ingress
+      repoURL: oci://ghcr.io/nginxinc/charts/nginx-ingress
+      targetRevision: 1.4.2
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-ingress
