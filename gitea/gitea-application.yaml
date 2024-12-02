@@ -9,7 +9,7 @@ spec:
   sources:
     - repoURL: 'https://dl.gitea.com/charts/'
       chart: gitea
-      targetRevision: v10.4.0
+      targetRevision: v10.6.0
       helm:
         values: |
           global:
