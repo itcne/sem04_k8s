@@ -17,11 +17,17 @@ spec:
           ingress:
             enabled: true
             className: cilium
+            annotations:
+              cert-manager.io/cluster-issuer: "letsencrypt-staging"
             hosts:
               - host: git.k8s.wlankabel.ch
                 paths:
                   - path: /
                     pathType: Prefix
+            tls:
+              - secretName: git-tls
+                hosts:
+                  - git.k8s.wlankabel.ch
   destination:
     server: https://kubernetes.default.svc
     namespace: s-gitea
