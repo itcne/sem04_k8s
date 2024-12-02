@@ -29,14 +29,14 @@ Dependabot keeps ArgoCD up to date by opening pull requests for new versions. Se
 
 This repository includes the following applications and definitions:
 
-| Application Name | Namespace       | Description                         |
-| ---------------- | --------------- | ----------------------------------- |
-| longhorn         | longhorn-system | Storage management                  |
-| cert-manager     | cert-manager    | Certificate management              |
-| nginx-ingress    | ingress-nginx   | Ingress controller                  |
-| gitea            | gitea           | Self-hosted Git service             |
-| nextcloud-int    | nextcloud-int   | Test/Integration Nextcloud instance |
-| nextcloud-prod   | nextcloud-prod  | Production Nextcloud instance       |
+| Application Name | Namespace        | Description                  |
+| ---------------- | ---------------- | ---------------------------- |
+| longhorn         | longhorn-system  | Storage management           |
+| cert-manager     | cert-manager     | Certificate management       |
+| nginx-ingress    | ingress-nginx    | Ingress controller           |
+| gitea            | gitea            | Self-hosted Git service      |
+| nextcloud-int    | nextcloud-int    | Internal Nextcloud instance  |
+| nextcloud-prod   | nextcloud-prod   | Production Nextcloud instance|
 
 ## License
 

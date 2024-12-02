@@ -6,18 +6,22 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
-    path: 'gitea'
-    targetRevision: main
-    directory:
-      recurse: true
-    helm:
-      valueFiles:
-        - values.yaml
-      values: |
-        global:
-          storageClass: lh-ssd-r3
+  sources:
+    - repoURL: 'https://dl.gitea.com/charts/'
+      chart: gitea
+      targetRevision: v10.4.0
+      helm:
+        values: |
+          global:
+            storageClass: lh-ssd-r3
+          ingress:
+            enabled: true
+            className: cilium
+            hosts:
+              - host: git.k8s.wlankabel.ch
+                paths:
+                  - path: /
+                    pathType: Prefix
   destination:
     server: https://kubernetes.default.svc
     namespace: s-gitea
