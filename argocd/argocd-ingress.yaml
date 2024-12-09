@@ -9,7 +9,7 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   rules:
-  - host: git.k8s.wlankabel.ch
+  - host: deploy.k8s.wlankabel.ch
     http:
       paths:
       - path: /
