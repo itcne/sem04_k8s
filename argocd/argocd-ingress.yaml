@@ -7,10 +7,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "cilium"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    ingress.cilium.io/tls-termination: "true"
 spec:
   ingressClassName: cilium
   rules:
-  - host: deploy.k8s.wlankabel.ch
+  - host: argocd.k8s.wlankabel.ch
     http:
       paths:
       - path: /
@@ -19,9 +20,9 @@ spec:
           service:
             name: argocd-server
             port:
-              number: 443
+              name: https
   tls:
   - hosts:
-    - deploy.k8s.wlankabel.ch
+    - argocd.k8s.wlankabel.ch
     secretName: argocd-tls
 ...
