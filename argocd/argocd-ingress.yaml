@@ -8,6 +8,7 @@ metadata:
     kubernetes.io/ingress.class: "cilium"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
+  ingressClassName: cilium
   rules:
   - host: deploy.k8s.wlankabel.ch
     http:
