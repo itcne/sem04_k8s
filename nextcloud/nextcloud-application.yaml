@@ -1,0 +1,74 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  project: default
+  source:
+    repoURL: https://nextcloud.github.io/helm/
+    chart: nextcloud
+    targetRevision: 6.3.1
+    helm:
+      values: |
+        ingress:
+          enabled: true
+          className: cilium
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          tls:
+            - secretName: nextcloud-tls
+              hosts:
+                - drive.k8s.wlankabel.ch
+        nextcloud:
+          host: drive.k8s.wlankabel.ch
+          existingSecret:
+            enabled: true
+            secretName: nextcloud-secret
+            usernameKey: nextcloud-admin-username
+            passwordKey: nextcloud-admin-password
+          containerPort: 80
+          phpClientHttpsFix:
+            enabled: true
+            protocol: https
+        postgresql:
+          enabled: true
+          auth:
+            existingSecret: "postgresql-credentials"
+            secretKeys:
+              adminPasswordKey: "postgres-password"
+              userPasswordKey: "nextcloud-password"
+              replicationPasswordKey: "replication-password"
+          primary:
+            persistence:
+              enabled: true
+              storageClass: lh-ssd-r3
+              accessModes:
+                - ReadWriteOnce
+              size: 8Gi
+        internalDatabase:
+          enabled: false
+        externalDatabase:
+          enabled: true
+          type: postgresql
+          existingSecret:
+            enabled: true
+            secretName: "postgresql-credentials"
+            usernameKey: "nextcloud-username"
+            passwordKey: "nextcloud-password"
+        persistence:
+          enabled: true
+          storageClass: lh-ssd-r3
+          accessMode: ReadWriteOnce
+          size: 100Gi
+        startupProbe:
+          enabled: true
+          initialDelaySeconds: 240
+        
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: s-nextcloud

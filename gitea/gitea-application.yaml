@@ -28,6 +28,19 @@ spec:
               - secretName: git-tls
                 hosts:
                   - git.k8s.wlankabel.ch
+          postgresql-ha:
+            enabled: false
+          postgresql:
+            enabled: false
+          gitea:
+            config:
+              database:
+                DB_TYPE: sqlite3
+                PATH: /data/gitea/gitea.db
+          redis-cluster:
+            enabled: false
+          redis:
+            enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: s-gitea

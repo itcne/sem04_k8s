@@ -33,10 +33,9 @@ This repository includes the following applications and definitions:
 | ---------------- | ---------------- | ---------------------------- |
 | longhorn         | longhorn-system  | Storage management           |
 | cert-manager     | cert-manager     | Certificate management       |
-| nginx-ingress    | ingress-nginx    | Ingress controller           |
-| gitea            | gitea            | Self-hosted Git service      |
-| nextcloud-int    | nextcloud-int    | Internal Nextcloud instance  |
-| nextcloud-prod   | nextcloud-prod   | Production Nextcloud instance|
+| gitea            | s-gitea            | Self-hosted Git service      |
+| nextcloud-int    | s-nextcloud-int    | Internal Nextcloud instance  |
+| nextcloud-prod   | s-nextcloud   | Production Nextcloud instance|
 
 ## License
 
