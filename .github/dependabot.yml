@@ -1,7 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: "docker" # Specifies Docker/OCI images
-    directory: "/*"   # Directory to scan for Kubernetes manifests
+  - package-ecosystem: "docker"
+    directory: "/*"
     schedule:
-      interval: "daily"         # Check for updates daily
-
+      interval: "daily"
