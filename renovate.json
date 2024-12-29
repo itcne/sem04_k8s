@@ -6,5 +6,12 @@
   },
   "argocd": {
     "fileMatch": ["\\.yaml$"]
+  },
+  "automerge": true,
+  "automergeType": "pr",
+  "dependencyDashboardApproval": true,
+  "labels": ["dependencies"],
+  "vulnerabilityAlerts": {
+    "enabled": true
   }
 }
