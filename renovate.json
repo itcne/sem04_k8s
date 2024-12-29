@@ -1,10 +1,10 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-      "config:base"
-    ],
-    "kubernetes": {
-      "fileMatch": ["\\.yaml$"]
-    }
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$"]
+  },
+  "argocd": {
+    "fileMatch": ["\\.yaml$"]
   }
-  
+}
