@@ -1,4 +1,6 @@
-# ArgoCD
+# Sem04 - K8s GitOps
+
+This repository contains all definitions to manage the resources in my TuringPi 2 Cluster. It serves as the single source of truth for ArgoCD.
 
 > Created during my semester thesis 4. More information can be found [here](https://cloud-native-engineering.github.io/sem04_docs/).
 
