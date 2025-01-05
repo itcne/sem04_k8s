@@ -21,9 +21,9 @@ The GitOps workflow in this repository separates the source code and Kubernetes 
 
 ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. It compares the state defined in git with the actual state in the cluster and synchronizes them.
 
-### Dependabot Integration
+### Renovate Bot Integration
 
-Dependabot keeps ArgoCD up to date by opening pull requests for new versions. Service owners can merge these pull requests to deploy the updates. After merging, ArgoCD synchronizes the cluster with the updated git definitions.
+Renovate Bot keeps ArgoCD up to date by opening pull requests for new versions. Service owners can merge these pull requests to deploy the updates. After merging, ArgoCD synchronizes the cluster with the updated git definitions.
 
 ## Contents & Applications
 
@@ -33,9 +33,9 @@ This repository includes the following applications and definitions:
 | ---------------- | ---------------- | ---------------------------- |
 | longhorn         | longhorn-system  | Storage management           |
 | cert-manager     | cert-manager     | Certificate management       |
-| gitea            | s-gitea            | Self-hosted Git service      |
-| nextcloud-int    | s-nextcloud-int    | Internal Nextcloud instance  |
-| nextcloud-prod   | s-nextcloud   | Production Nextcloud instance|
+| gitea            | s-gitea          | Self-hosted Git service      |
+| nextcloud-int    | s-nextcloud-int  | Internal Nextcloud instance  |
+| nextcloud-prod   | s-nextcloud      | Production Nextcloud instance|
 
 ## License
 
