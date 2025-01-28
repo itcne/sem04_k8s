@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: "cilium"
     ingress.cilium.io/tls-termination: "true"
-    ingress.cilium.io/backend-protocol: "HTTPS"
+    ingress.cilium.io/backend-protocol: "HTTP"
     ingress.cilium.io/tls-passthrough: "enabled"
 spec:
   ingressClassName: cilium
