@@ -22,7 +22,7 @@ spec:
           service:
             name: longhorn-frontend
             port:
-              name: http
+              number: 80
   tls:
   - hosts:
     - longhorn.k8s.wlankabel.ch
