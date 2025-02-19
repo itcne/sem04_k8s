@@ -10,3 +10,9 @@ parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
   fromBackup: ""
   fsType: "ext4"
+  recurringJobSelector: '[
+    {
+      "name":"lh-ssd-r2",
+      "isGroup":true
+    }
+  ]'
