@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sem04-k8s
+  title: "sem04-k8s"
+  description: "ArgoCD and Kubernetes configuration for SEM04 project"
+  tags:
+    - kubernetes
+    - "ArgoCD"
+    - continuous deployment
+    
+  owner: Yves
+  links:
+    - url: https://github.com/Cloud-native-engineering/sem04_k8s
+      title: GitHub Repository
+spec:
+  type: documentation
+  owner: Yves
+  lifecycle: production
+  system: sem04-system
