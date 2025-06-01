@@ -6,9 +6,7 @@ metadata:
   description: "ArgoCD and Kubernetes configuration for SEM04 project"
   tags:
     - kubernetes
-    - "ArgoCD"
-    - continuous deployment
-    
+    - argocd
   owner: Yves
   links:
     - url: https://github.com/Cloud-native-engineering/sem04_k8s
