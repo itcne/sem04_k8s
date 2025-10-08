@@ -11,7 +11,7 @@ spec:
   project: default
   sources:
     - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
-      path: 'nextcloud-int'
+      path: 'nextcloud'
       targetRevision: main
     - repoURL: https://nextcloud.github.io/helm/
       chart: nextcloud
