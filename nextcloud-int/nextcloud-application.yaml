@@ -9,37 +9,40 @@ spec:
     syncOptions:
       - CreateNamespace=true
   project: default
-  source:
-    repoURL: https://nextcloud.github.io/helm/
-    chart: nextcloud
-    targetRevision: 8.4.0
-    helm:
-      values: |
-        ingress:
-          enabled: true
-          className: cilium
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-staging"
-          tls:
-            - secretName: nextcloud-tls
-              hosts:
-                - drive.int.k8s.wlankabel.ch
-        nextcloud:
-          host: drive.int.k8s.wlankabel.ch
-          existingSecret:
+  sources:
+    - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
+      path: 'longhorn'
+      targetRevision: main
+    - repoURL: https://nextcloud.github.io/helm/
+      chart: nextcloud
+      targetRevision: 8.4.0
+      helm:
+        values: |
+          ingress:
             enabled: true
-            secretName: nextcloud-secret
-            usernameKey: nextcloud-admin-username
-            passwordKey: nextcloud-admin-password
-          containerPort: 80
-          phpClientHttpsFix:
+            className: cilium
+            annotations:
+              cert-manager.io/cluster-issuer: "letsencrypt-staging"
+            tls:
+              - secretName: nextcloud-tls
+                hosts:
+                  - drive.int.k8s.wlankabel.ch
+          nextcloud:
+            host: drive.int.k8s.wlankabel.ch
+            existingSecret:
+              enabled: true
+              secretName: nextcloud-secret
+              usernameKey: nextcloud-admin-username
+              passwordKey: nextcloud-admin-password
+            containerPort: 80
+            phpClientHttpsFix:
+              enabled: true
+              protocol: https
+          persistence:
             enabled: true
-            protocol: https
-        persistence:
-          enabled: true
-          storageClass: lh-ssd-r2
-          accessMode: ReadWriteOnce
-          size: 8Gi
+            storageClass: lh-ssd-r2
+            accessMode: ReadWriteOnce
+            size: 8Gi
   destination:
     server: https://kubernetes.default.svc
     namespace: s-nextcloud-int
