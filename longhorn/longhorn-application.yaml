@@ -20,7 +20,7 @@ spec:
           preUpgradeChecker:
             jobEnabled: false
           defaultSettings:
-            defaultReplicaCount: 2
+            defaultReplicaCount: "2"
             defaultDataLocality: "best-effort"
             defaultDataPath: /var/mnt/longhorn
           namespaceOverride: "longhorn-system"
