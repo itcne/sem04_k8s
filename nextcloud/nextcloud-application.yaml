@@ -9,65 +9,68 @@ spec:
     syncOptions:
       - CreateNamespace=true
   project: default
-  source:
-    repoURL: https://nextcloud.github.io/helm/
-    chart: nextcloud
-    targetRevision: 8.4.0
-    helm:
-      values: |
-        ingress:
-          enabled: true
-          className: cilium
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          tls:
-            - secretName: nextcloud-tls
-              hosts:
-                - drive.k8s.wlankabel.ch
-        nextcloud:
-          host: drive.k8s.wlankabel.ch
-          existingSecret:
+  sources:
+    - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
+      path: 'nextcloud-int'
+      targetRevision: main
+    - repoURL: https://nextcloud.github.io/helm/
+      chart: nextcloud
+      targetRevision: 8.4.0
+      helm:
+        values: |
+          ingress:
             enabled: true
-            secretName: nextcloud-secret
-            usernameKey: nextcloud-admin-username
-            passwordKey: nextcloud-admin-password
-          containerPort: 80
-          phpClientHttpsFix:
-            enabled: true
-            protocol: https
-        postgresql:
-          enabled: true
-          auth:
-            existingSecret: "postgresql-credentials"
-            secretKeys:
-              adminPasswordKey: "postgres-password"
-              userPasswordKey: "nextcloud-password"
-              replicationPasswordKey: "replication-password"
-          primary:
-            persistence:
+            className: cilium
+            annotations:
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            tls:
+              - secretName: nextcloud-tls
+                hosts:
+                  - drive.k8s.wlankabel.ch
+          nextcloud:
+            host: drive.k8s.wlankabel.ch
+            existingSecret:
               enabled: true
-              storageClass: lh-ssd-r3
-              accessModes:
-                - ReadWriteOnce
-              size: 8Gi
-        internalDatabase:
-          enabled: false
-        externalDatabase:
-          enabled: true
-          type: postgresql
-          existingSecret:
+              secretName: nextcloud-secret
+              usernameKey: nextcloud-admin-username
+              passwordKey: nextcloud-admin-password
+            containerPort: 80
+            phpClientHttpsFix:
+              enabled: true
+              protocol: https
+          postgresql:
             enabled: true
-            secretName: "postgresql-credentials"
-            usernameKey: "nextcloud-username"
-            passwordKey: "nextcloud-password"
-        persistence:
-          enabled: true
-          storageClass: lh-ssd-r3
-          accessMode: ReadWriteOnce
-          size: 100Gi
-        startupProbe:
-          enabled: true
-          initialDelaySeconds: 240
+            auth:
+              existingSecret: "postgresql-credentials"
+              secretKeys:
+                adminPasswordKey: "postgres-password"
+                userPasswordKey: "nextcloud-password"
+                replicationPasswordKey: "replication-password"
+            primary:
+              persistence:
+                enabled: true
+                storageClass: lh-ssd-r3
+                accessModes:
+                  - ReadWriteOnce
+                size: 8Gi
+          internalDatabase:
+            enabled: false
+          externalDatabase:
+            enabled: true
+            type: postgresql
+            existingSecret:
+              enabled: true
+              secretName: "postgresql-credentials"
+              usernameKey: "nextcloud-username"
+              passwordKey: "nextcloud-password"
+          persistence:
+            enabled: true
+            storageClass: lh-ssd-r3
+            accessMode: ReadWriteOnce
+            size: 100Gi
+          startupProbe:
+            enabled: true
+            initialDelaySeconds: 240
         
   destination:
     server: https://kubernetes.default.svc
