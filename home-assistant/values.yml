@@ -120,13 +120,14 @@ ingress:
   labels: {}
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    ingress.cilium.io/loadbalancer-mode: dedicated
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: ha.k8s.wlankabel.ch
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
   tls:
     - secretName: home-assistant-tls
       hosts:
@@ -196,7 +197,9 @@ configuration:
         {{- range .Values.configuration.trusted_proxies }}
         - {{ . }}
         {{- end }}
-    {{- end}}
+      external_url: https://ha.k8s.wlankabel.ch
+      internal_url: http://localhost:8123
+    {{- end }}
     # Load frontend themes from the themes folder
     frontend:
       themes: !include_dir_merge_named themes
@@ -331,7 +334,10 @@ additionalMounts:
   #   name: usb
 
 # if you need to expose additional ports
-additionalPorts: []
+additionalPorts:
+  - name: http
+    containerPort: 8123
+    protocol: TCP
 #  - name: sia
 #    containerPort: 8124
 #    protocol: TCP
