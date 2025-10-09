@@ -79,8 +79,13 @@ hostNetwork: false
 # dnsPolicy: ClusterFirst
 
 # Container security context settings
+
 securityContext:
   privileged: true
+  capabilities:
+    add:
+      - SYS_RAWIO
+  # privileged: true
   # capabilities:
   #   drop:
   #   - ALL
