@@ -15,7 +15,7 @@ spec:
       targetRevision: main
     - repoURL: https://nextcloud.github.io/helm/
       chart: nextcloud
-      targetRevision: 8.5.9
+      targetRevision: 8.7.0
       helm:
         values: |
           ingress:
