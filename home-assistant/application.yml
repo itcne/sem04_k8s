@@ -12,7 +12,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
       path: 'home-assistant/'
-      targetRevision: feat/home-assistant
+      targetRevision: main
       ref: values
     - repoURL: https://pajikos.github.io/home-assistant-helm-chart/
       chart: home-assistant
