@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-assistant
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  project: default
+  sources:
+    - repoURL: 'https://github.com/Cloud-native-engineering/sem04_k8s.git'
+      path: 'home-assistant/'
+      targetRevision: feat/home-assistant
+      ref: values
+    - repoURL: https://pajikos.github.io/home-assistant-helm-chart/
+      chart: home-assistant
+      targetRevision: 0.3.24
+      helm:
+        valueFiles:
+          - $values/home-assistant/values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: s-homeassistant-prod
