@@ -403,7 +403,7 @@ addons:
       # Image pull policy for the code-server image
       pullPolicy: IfNotPresent
       # Tag for the code-server image
-      tag: "4.107.0"
+      tag: "4.108.1"
     # Service settings
     service:
       # Service type (ClusterIP, NodePort, LoadBalancer, or ExternalName)
