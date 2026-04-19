@@ -2,6 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- Override the namespace
+# @default -- `.Release.Namespace`
+namespaceOverride: ""
+
 # Number of replicas for the deployment
 replicaCount: 1
 
@@ -12,7 +16,7 @@ image:
   # Image pull policy
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2026.4"
+  tag: ""
 
 # List of imagePullSecrets for private image repositories
 imagePullSecrets: []
@@ -30,6 +34,10 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
+# Labels to add to all resources
+commonLabels: {}
+  # app.kubernetes.io/part-of: home-automation
 
 # Annotations to add to the pod
 podAnnotations: {}
@@ -77,7 +85,6 @@ hostNetwork: true
 # Set the dnsPolicy (you'll want ClusterFirstWithHostNet if running on hostNetwork to reac
 # other k8s services via DNS
 # dnsPolicy: ClusterFirst
-dnsPolicy: ClusterFirstWithHostNet
 
 # Container security context settings
 securityContext:
@@ -102,7 +109,7 @@ service:
   # Service type (ClusterIP, NodePort, LoadBalancer, or ExternalName)
   type: ClusterIP
   # Service port
-  port: 8123
+  port: 8080
   # Annotations to add to the service
   annotations: {}
 
@@ -169,7 +176,7 @@ initContainers: []
 # Configuration for Home Assistant
 configuration:
   # Enable or disable the configuration setup for Home Assistant
-  enabled: true
+  enabled: false
   # Force init will merge the current configuration file with the default configuration on every start
   # This is useful when you want to ensure that the configuration file is always up to date
   forceInit: false
@@ -185,6 +192,10 @@ configuration:
   templateConfig: |-
     # Loads default set of integrations. Do not remove.
     default_config:
+
+    {{- if .Values.serviceMonitor.enabled }}
+    prometheus:
+    {{- end }}
 
     {{- if or .Values.ingress.enabled .Values.ingress.external }}
     http:
@@ -293,7 +304,7 @@ persistence:
   # Storage class for the persistent volume claim
   storageClass: "lh-ssd-r2"
   # Name of the existing volume for the StatefulSet, this option can be used to bind to an existing PV
-  existingVolume: ""
+  existingVolume: "homeassistant-01"
   # Name of the existing PVC to use with Deployment, this option can be used to use an existing PVC
   existingClaim: ""
   # Annotations to add to the persistent volume claim
@@ -377,7 +388,8 @@ startupProbe: {}
   #   port: http
 
 serviceMonitor:
-  # requires HA integration:  https://www.home-assistant.io/integrations/prometheus/
+  # Enabling this automatically enables the Prometheus integration with default configuration.
+  # See https://www.home-assistant.io/integrations/prometheus/ for details.
   enabled: false
   scrapeInterval: 30s
   labels: {}
@@ -403,7 +415,18 @@ addons:
       # Image pull policy for the code-server image
       pullPolicy: IfNotPresent
       # Tag for the code-server image
-      tag: "4.115.0"
+      tag: "4.111.0"
+    # Authentication settings for the code-server addon
+    auth:
+      # Enable or disable authentication (if disabled, --auth none is used)
+      enabled: false
+      # Existing secret containing the password
+      # The secret should have a key 'password' containing the code-server password
+      existingSecret: ""
+      # Password for code-server (only used if existingSecret is not set)
+      # If neither existingSecret nor password is set, code-server will generate a random password
+      # which will be printed in the logs
+      password: ""
     # Service settings
     service:
       # Service type (ClusterIP, NodePort, LoadBalancer, or ExternalName)
@@ -435,9 +458,18 @@ addons:
 controller:
   # Type of controller to use: StatefulSet or Deployment
   type: StatefulSet
+  # Labels to add to the controller
+  labels: {}
 
 # Annotations to add to the stateful set
 statefulSetAnnotations: {}
+
+# Pod replacement policy for the StatefulSet (requires Kubernetes 1.32+)
+# When set to "Always", a replacement pod is created immediately when a pod is terminating
+# (e.g., due to a node failure), rather than waiting for the terminating pod to fully shut down.
+# Valid values: "" (default Kubernetes behavior), "Always"
+# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#pod-replacement-policy
+podReplacementPolicy: ""
 
 # Annotations to add to the deployment
 deploymentAnnotations: {}

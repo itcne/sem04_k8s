@@ -16,7 +16,7 @@ spec:
       ref: values
     - repoURL: https://pajikos.github.io/home-assistant-helm-chart/
       chart: home-assistant
-      targetRevision: 0.3.24
+      targetRevision: 0.3.55
       helm:
         valueFiles:
           - $values/home-assistant/values.yml
