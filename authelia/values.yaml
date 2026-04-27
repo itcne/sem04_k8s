@@ -1,7 +1,7 @@
 ---
 configMap:
   server:
-    address: tcp://0.0.0.0:9091
+    port: 9091
 
   log:
     level: info
@@ -22,7 +22,7 @@ configMap:
   session:
     cookies:
       - domain: k8s.wlankabel.ch
-        authelia_url: https://auth.k8s.wlankabel.ch
+        subdomain: auth
     encryption_key:
       secret_name: authelia-secrets
       path: session.encryption.key
@@ -42,6 +42,9 @@ configMap:
 
 secret:
   existingSecret: authelia-secrets
+  additionalSecrets:
+    authelia-secrets:
+      path: authelia-secrets
 
 persistence:
   enabled: true
@@ -62,8 +65,3 @@ ingress:
   tls:
     enabled: true
     secret: authelia-tls
-  rulesOverride:
-    - host: auth.k8s.wlankabel.ch
-      paths:
-        - path: /
-          pathType: Prefix
