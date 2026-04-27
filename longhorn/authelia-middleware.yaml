@@ -6,7 +6,7 @@ metadata:
   namespace: longhorn-system
 spec:
   forwardAuth:
-    address: http://authelia.authelia.svc.cluster.local/api/authz/forward-auth
+    address: http://authelia.authelia.svc.cluster.local/api/authz/forward-auth?authelia_url=https%3A%2F%2Fauth.k8s.wlankabel.ch%2F
     trustForwardHeader: true
     maxResponseBodySize: 8192
     authResponseHeaders:
