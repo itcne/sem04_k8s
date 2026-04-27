@@ -39,7 +39,7 @@ metadata:
 spec:
   cron: "0 4 1 * *"
   task: filesystem-trim
-  retain: 1
+  retain: 0
   concurrency: 1
   groups:
     - lh-ssd-r1
