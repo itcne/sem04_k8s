@@ -1,0 +1,59 @@
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-default-snapshot
+  namespace: longhorn-system
+spec:
+  cron: "0 2 * * *"
+  task: snapshot
+  retain: 7
+  concurrency: 1
+  groups:
+    - lh-ssd-r1
+    - lh-ssd-r2
+    - lh-ssd-r3
+    - lh-ssd-r4
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: weekly-default-backup
+  namespace: longhorn-system
+spec:
+  cron: "0 1 * * 0"
+  task: backup
+  retain: 4
+  concurrency: 1
+  groups:
+    - lh-ssd-r1
+    - lh-ssd-r2
+    - lh-ssd-r3
+    - lh-ssd-r4
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: monthly-default-trim
+  namespace: longhorn-system
+spec:
+  cron: "0 4 1 * *"
+  task: filesystem-trim
+  retain: 1
+  concurrency: 1
+  groups:
+    - lh-ssd-r1
+    - lh-ssd-r2
+    - lh-ssd-r3
+    - lh-ssd-r4
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: weekly-secure-backup
+  namespace: longhorn-system
+spec:
+  cron: "0 2 * * 3"
+  task: backup
+  retain: 4
+  concurrency: 1
