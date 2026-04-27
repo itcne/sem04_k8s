@@ -28,3 +28,7 @@ kubectl create secret generic authelia-secrets \
   --from-literal='storage.encryption.key='"$(openssl rand -base64 64 | tr -d '\n')" \
   -n authelia
 ```
+
+## Runtime
+
+This deployment is intended to run as a single instance with `ReadWriteOnce` storage.

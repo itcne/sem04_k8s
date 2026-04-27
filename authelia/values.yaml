@@ -1,4 +1,7 @@
 ---
+pod:
+  kind: Deployment
+
 configMap:
   server:
     port: 9091
