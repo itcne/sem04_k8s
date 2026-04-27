@@ -32,6 +32,9 @@ configMap:
       - domain:
           - auth.k8s.wlankabel.ch
         policy: bypass
+      - domain:
+          - longhorn.k8s.wlankabel.ch
+        policy: two_factor
 
   session:
     cookies:
