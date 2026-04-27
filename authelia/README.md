@@ -37,3 +37,8 @@ kubectl create secret generic authelia-secrets \
 ## Runtime
 
 This deployment is intended to run as a single instance with `ReadWriteOnce` storage.
+
+## YubiKey
+
+Authelia is configured to use WebAuthn as the default 2FA method.
+After the first admin login, register your YubiKey in the Authelia UI and use it as the second factor.

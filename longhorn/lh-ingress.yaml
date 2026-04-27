@@ -6,11 +6,10 @@ metadata:
   namespace: longhorn-system
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/ingress.class: "cilium"
-    ingress.cilium.io/tls-termination: "true"
-    ingress.cilium.io/backend-protocol: "HTTP"
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-authelia@kubernetescrd
 spec:
-  ingressClassName: cilium
+  ingressClassName: traefik
   rules:
   - host: longhorn.k8s.wlankabel.ch
     http:
