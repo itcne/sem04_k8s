@@ -77,13 +77,13 @@ persistence:
 
 ingress:
   enabled: true
-  className: cilium
+  className: traefik
   certManager: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/ingress.class: cilium
-    ingress.cilium.io/tls-termination: "true"
-    ingress.cilium.io/backend-protocol: HTTP
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entryPoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
   tls:
     enabled: true
     secret: authelia-tls
